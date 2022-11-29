@@ -1,0 +1,74 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#define TAILLE 15
+
+void Initialisaton_Demineur(int demineur[TAILLE][TAILLE]) {
+    int i, j;
+    for (i = 0; i < TAILLE; i++) {    //initialise tout le demineur a 0
+        for (j = 0; j < TAILLE; j++) {
+            demineur[i][j] = 0;
+        }
+    }
+    int compteur;                                      //place les 50 bombes
+    for (compteur = 0; compteur < 90; compteur++) {
+        int random1 = 0;
+        int random2 = 0;
+        random1 = rand() % TAILLE;
+        random2 = rand() % TAILLE;
+        demineur[random1][random2] = 88;
+    }
+    for (i = 0; i < TAILLE; i++) {                    //Affiche le nombre de bombes autour de la case
+        for (j = 0; j < TAILLE; j++) {
+            if (demineur[i][j] == 88) {
+                if (demineur[i - 1][j - 1] != 88) {
+                    demineur[i - 1][j - 1] += 1;
+                }
+                if (demineur[i - 1][j] != 88) {
+                    demineur[i - 1][j] += 1;
+                }
+                if (demineur[i - 1][j + 1] != 88) {
+                    demineur[i - 1][j + 1] += 1;
+                }
+                if (demineur[i][j - 1] != 88) {
+                    demineur[i][j - 1] += 1;
+                }
+                if (demineur[i][j + 1] != 88) {
+                    demineur[i][j + 1] += 1;
+                }
+                if (demineur[i + 1][j - 1] != 88) {
+                    demineur[i + 1][j - 1] += 1;
+                }
+                if (demineur[i + 1][j] != 88) {
+                    demineur[i + 1][j] += 1;
+                }
+                if (demineur[i + 1][j + 1] != 88) {
+                    demineur[i + 1][j + 1] += 1;
+                }
+            }
+        }
+    }
+}
+
+void Afficher_Demineur(int demineur[TAILLE][TAILLE]) {
+    int i, j;
+    for (i = 0; i < TAILLE; i++) {
+        for (j = 0; j < TAILLE; j++) {
+            if (demineur[i][j] == 88) {
+                printf("%c  ", demineur[i][j]);
+            } else {
+                printf("%d  ", demineur[i][j]);
+            }
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    srand(time(NULL));
+    int demineur[TAILLE][TAILLE];
+    Initialisaton_Demineur(demineur);
+    Afficher_Demineur(demineur);
+    return 0;
+}
